@@ -1,5 +1,6 @@
 package LocadoraVeiculo.GUI;
 
+import LocadoraVeiculo.GUI.cadastro.CadastroCarroGUI;
 import LocadoraVeiculo.GUI.cadastro.CadastroFabricanteGUI;
 import LocadoraVeiculo.GUI.cadastro.CadastroModeloGUI;
 
@@ -24,7 +25,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuCadastro = new javax.swing.JMenu();
         menuItemFabricante = new javax.swing.JMenuItem();
-        menuItemFabricante1 = new javax.swing.JMenuItem();
+        menuItemModelo = new javax.swing.JMenuItem();
+        menuItemCarro = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -39,14 +41,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         menuCadastro.add(menuItemFabricante);
 
-        menuItemFabricante1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        menuItemFabricante1.setText("Modelo");
-        menuItemFabricante1.addActionListener(new java.awt.event.ActionListener() {
+        menuItemModelo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menuItemModelo.setText("Modelo");
+        menuItemModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemFabricante1ActionPerformed(evt);
+                menuItemModeloActionPerformed(evt);
             }
         });
-        menuCadastro.add(menuItemFabricante1);
+        menuCadastro.add(menuItemModelo);
+
+        menuItemCarro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        menuItemCarro.setText("Carro");
+        menuItemCarro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCarroActionPerformed(evt);
+            }
+        });
+        menuCadastro.add(menuItemCarro);
 
         jMenuBar1.add(menuCadastro);
 
@@ -72,15 +83,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_menuItemFabricanteActionPerformed
 
-    private void menuItemFabricante1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemFabricante1ActionPerformed
+    private void menuItemModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemModeloActionPerformed
         CadastroModeloGUI dialog = new CadastroModeloGUI(this, true);
         dialog.setVisible(true);
-    }//GEN-LAST:event_menuItemFabricante1ActionPerformed
+    }//GEN-LAST:event_menuItemModeloActionPerformed
+
+    private void menuItemCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCarroActionPerformed
+        CadastroCarroGUI dialog = new CadastroCarroGUI(this, true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_menuItemCarroActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu menuCadastro;
+    private javax.swing.JMenuItem menuItemCarro;
     private javax.swing.JMenuItem menuItemFabricante;
-    private javax.swing.JMenuItem menuItemFabricante1;
+    private javax.swing.JMenuItem menuItemModelo;
     // End of variables declaration//GEN-END:variables
 }

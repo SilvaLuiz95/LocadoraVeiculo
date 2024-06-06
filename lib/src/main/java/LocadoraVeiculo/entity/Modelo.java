@@ -6,6 +6,13 @@ public class Modelo extends Fabricante {
     private String nome;
     private Fabricante fabricante;
 
+    public Modelo() {
+    }
+
+    public Modelo(String nome) {
+        this.nome = nome;
+    }
+    
     public int getId() {
         return id;
     }
