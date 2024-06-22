@@ -17,6 +17,10 @@ public class Carro {
     public Carro(int id) {
         this.id = id;
     }
+
+    public Carro(Fabricante fabricante) {
+        this.fabricante = fabricante;
+    }
    
     
     public int getId() {

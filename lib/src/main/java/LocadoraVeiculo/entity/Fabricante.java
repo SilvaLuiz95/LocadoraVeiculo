@@ -34,7 +34,8 @@ public class Fabricante {
 
     @Override
     public String toString() {
-        return nome;
+        return "Fabricante{" +
+                "id=" + id +
+                '}';
     }
-    
 }

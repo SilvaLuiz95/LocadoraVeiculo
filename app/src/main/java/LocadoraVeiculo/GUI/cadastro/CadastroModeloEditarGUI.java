@@ -79,6 +79,12 @@ public class CadastroModeloEditarGUI extends javax.swing.JDialog {
 
         lblNomeModelo.setText("Nome");
 
+        txtNomeModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeModeloActionPerformed(evt);
+            }
+        });
+
         lblFabricante.setText("Fabricante");
 
         cboFabricante.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -196,6 +202,10 @@ public class CadastroModeloEditarGUI extends javax.swing.JDialog {
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void txtNomeModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeModeloActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;

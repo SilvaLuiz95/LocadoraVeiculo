@@ -70,6 +70,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNomeModelo">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeModeloActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblFabricante">
       <Properties>

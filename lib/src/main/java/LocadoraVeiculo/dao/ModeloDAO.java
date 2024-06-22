@@ -14,7 +14,8 @@ public class ModeloDAO {
         List<Modelo> listaModelo = new ArrayList<>();
 
         String query = """
-                       SELECT * from modelo;
+                       SELECT * FROM modelo
+                       ORDER BY id ASC;
                        """;
 
         try (Statement stmt = Conexao.getConn().createStatement(); ResultSet rs = stmt.executeQuery(query)) {
@@ -108,7 +109,7 @@ public class ModeloDAO {
                                   INSERT INTO modelo (nome, id_fabricante)
                                   VALUES ('%s',%d)
                                   """, nome, id);
-        try (Statement stmt = Conexao.getConn().createStatement();) {
+        try (Statement stmt = Conexao.getConn().createStatement()) {
             return stmt.executeUpdate(query);
         } catch (Exception e) {
             throw new RuntimeException(e);

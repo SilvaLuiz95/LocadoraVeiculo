@@ -18,7 +18,7 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     }
 
     public void carregarLista() {
-        List<Carro> listaCarro = dao.selectNomeFabricanteMOdelo();
+        List<Carro> listaCarro = dao.selectModeloFabricante();
 
         Object[][] dados = new Object[listaCarro.size()][Carro.class.getDeclaredFields().length];
 
@@ -67,8 +67,18 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
         btnExcluir.setText("Excluir");
 
         btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnFechar.setText("Fechar");
         btnFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,6 +138,19 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnFecharActionPerformed
+
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        CadastroCarroEditarGUI dialog = new CadastroCarroEditarGUI(null, true);
+        dialog.setVisible(true);
+        
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        CadastroCarroEditarGUI dialog = new CadastroCarroEditarGUI(null,true);
+        dialog.carregarCarro((Integer)tblCarro.getModel().getValueAt(tblCarro.getSelectedRow(), 0));
+        dialog.setVisible(true);
+        carregarLista();
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     /**
      * @param args the command line arguments

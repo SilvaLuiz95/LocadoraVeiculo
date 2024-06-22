@@ -140,7 +140,6 @@ public class CadastroModeloGUI extends javax.swing.JDialog {
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         CadastroModeloEditarGUI dialog = new CadastroModeloEditarGUI(null, true);
         dialog.setVisible(true);
-        carregarLista();
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed

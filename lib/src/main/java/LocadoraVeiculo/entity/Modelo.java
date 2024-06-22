@@ -9,6 +9,10 @@ public class Modelo extends Fabricante {
     public Modelo() {
     }
 
+    public Modelo(int id) {
+        this.id = id;
+    }
+
     public Modelo(String nome) {
         this.nome = nome;
     }
@@ -36,4 +40,11 @@ public class Modelo extends Fabricante {
     public void setFabricante(Fabricante fabricante) {
         this.fabricante = fabricante;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
+    
 }
