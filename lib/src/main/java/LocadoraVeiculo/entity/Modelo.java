@@ -16,7 +16,12 @@ public class Modelo extends Fabricante {
     public Modelo(String nome) {
         this.nome = nome;
     }
-    
+
+    public Modelo(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     public int getId() {
         return id;
     }
@@ -45,6 +50,5 @@ public class Modelo extends Fabricante {
     public String toString() {
         return nome;
     }
-    
-    
+
 }

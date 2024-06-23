@@ -2,6 +2,9 @@ package LocadoraVeiculo.GUI.cadastro;
 
 import LocadoraVeiculo.dao.CarroDAO;
 import LocadoraVeiculo.entity.Carro;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -13,7 +16,7 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     public CadastroCarroGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+
         carregarLista();
     }
 
@@ -32,7 +35,7 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
             dados[i][4] = carro.getCor();
             dados[i][5] = carro.getDisponivel();
             dados[i][6] = carro.getAno();
-            dados[i][7] = carro.getValorLocacao();
+            dados[i][7] = decimal2(carro.getValorLocacao());
 
             i++;
         }
@@ -44,6 +47,19 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
             }
         };
         tblCarro.setModel(model);
+    }
+
+    public String decimal2(double i_valor) {
+        return new DecimalFormat("###,##0.00").format(round(round(i_valor, 3), 2));
+    }
+
+    public double round(double i_valor, int i_qtd) {
+        if (Double.isNaN(i_valor) || Double.isInfinite(i_valor)) {
+            i_valor = 0;
+        }
+
+        BigDecimal valorExato = new BigDecimal(String.valueOf(i_valor)).setScale(i_qtd, RoundingMode.HALF_UP);
+        return valorExato.doubleValue();
     }
 
     /**
@@ -142,12 +158,12 @@ public class CadastroCarroGUI extends javax.swing.JDialog {
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         CadastroCarroEditarGUI dialog = new CadastroCarroEditarGUI(null, true);
         dialog.setVisible(true);
-        
+
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        CadastroCarroEditarGUI dialog = new CadastroCarroEditarGUI(null,true);
-        dialog.carregarCarro((Integer)tblCarro.getModel().getValueAt(tblCarro.getSelectedRow(), 0));
+        CadastroCarroEditarGUI dialog = new CadastroCarroEditarGUI(null, true);
+        dialog.carregarCarro((Integer) tblCarro.getModel().getValueAt(tblCarro.getSelectedRow(), 0));
         dialog.setVisible(true);
         carregarLista();
     }//GEN-LAST:event_btnEditarActionPerformed

@@ -6,6 +6,7 @@ import LocadoraVeiculo.dao.ModeloDAO;
 import LocadoraVeiculo.entity.Carro;
 import LocadoraVeiculo.entity.Fabricante;
 import LocadoraVeiculo.entity.Modelo;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -16,6 +17,8 @@ public class CadastroCarroEditarGUI extends javax.swing.JDialog {
     private ModeloDAO daoM = new ModeloDAO();
     private Carro carroEditar = null;
     private CarroDAO daoC = new CarroDAO();
+    private List<Modelo> listaModelo = new ArrayList<>();
+    private List<Fabricante> listaFabricante = new ArrayList<>();
 
     public CadastroCarroEditarGUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -32,31 +35,29 @@ public class CadastroCarroEditarGUI extends javax.swing.JDialog {
         txtValorCarro.setText(String.valueOf(carroEditar.getValorLocacao()));
         chkDisponivel.setSelected(carroEditar.getDisponivel());
 
-        List<Fabricante> fabricantes = daoF.select();
-        DefaultComboBoxModel<String> comboBoxModelFabricante = new DefaultComboBoxModel<>();
-
-        for (Fabricante fabricante : fabricantes) {
-            comboBoxModelFabricante.addElement(fabricante.getNome());
-        }
-
-        List<Modelo> modelos = daoM.select();
-        DefaultComboBoxModel<String> comboBoxModelModelo = new DefaultComboBoxModel<>();
-
-        for (Modelo modelo : modelos) {
-            comboBoxModelModelo.addElement(modelo.getNome());
-        }
-
-        cboNomeFabricante.setModel(comboBoxModelFabricante);
-        cboNomeFabricante.setSelectedItem(carroEditar.getFabricante().getNome());
-
-        cboNomeModelo.setModel(comboBoxModelModelo);
-        cboNomeModelo.setSelectedItem(carroEditar.getModelo().getNome());
+        setComboFabricante(carroEditar.getFabricante());
+        setComboModelo(carroEditar.getModelo());
 
     }
 
-    public void carregarComboBoxFabricante() {
+    public void setComboFabricante(Fabricante f) {
+        for (Fabricante fabricanteProcura : listaFabricante) {
+            if (fabricanteProcura.getId() == f.getId()) {
+                cboNomeFabricante.setSelectedIndex(listaFabricante.indexOf(fabricanteProcura));
+            }
+        }
+    }
 
-        List<Fabricante> listaFabricante = daoF.select();
+    public void setComboModelo(Modelo m) {
+        for (Modelo modeloProcura : listaModelo) {
+            if (modeloProcura.getId() == m.getId()) {
+                cboNomeModelo.setSelectedIndex(listaModelo.indexOf(modeloProcura));
+            }
+        }
+    }
+
+    public void carregarComboBoxFabricante() {
+        listaFabricante = daoF.select();
 
         Object[] valoresModelFabricante = new Object[listaFabricante.size()];
 
@@ -74,8 +75,7 @@ public class CadastroCarroEditarGUI extends javax.swing.JDialog {
     }
 
     public void carregarComboBoxModelo() {
-
-        List<Modelo> listaModelo = daoM.select();
+        listaModelo = daoM.select();
 
         Object[] valoresModelModelo = new Object[listaModelo.size()];
 
@@ -90,6 +90,29 @@ public class CadastroCarroEditarGUI extends javax.swing.JDialog {
         DefaultComboBoxModel modelModelo = new DefaultComboBoxModel(valoresModelModelo);
 
         cboNomeModelo.setModel(modelModelo);
+    }
+
+    private void salvar() throws Exception {
+//        Carro c = new Carro();
+//        c.setFabricante(fabricante);
+        int idFabricante = ((Fabricante) cboNomeFabricante.getSelectedItem()).getId();
+        int idModelo = ((Modelo) cboNomeModelo.getSelectedItem()).getId();
+        String placa = txtPlaca.getText();
+        String cor = txtCor.getText();
+        String disponivel = Boolean.toString(chkDisponivel.isSelected());
+        int ano = Integer.parseInt(txtAnoCarro.getText());
+        Double valorCarro = Double.parseDouble(txtValorCarro.getText());
+
+//        if (carroEditar.getId() != 0) {
+        if (carroEditar != null) {
+            daoC.update(carroEditar.getId(), idFabricante, idModelo, placa, cor, disponivel, ano, valorCarro);
+        } else {
+            daoC.insert(idFabricante, idModelo, placa, cor, disponivel, ano, valorCarro);
+        }
+
+        String mensagem = carroEditar != null ? "Carro Alterado com Sucesso" : "Carro Inserido com Sucesso";
+        JOptionPane.showMessageDialog(this, mensagem, "SUCESS", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
     }
 
     /**
@@ -246,44 +269,12 @@ public class CadastroCarroEditarGUI extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (carroEditar != null) {
-            Fabricante nomeFabricante = (Fabricante) cboNomeFabricante.getModel().getSelectedItem();
-            Modelo nomeModelo = (Modelo) cboNomeModelo.getModel().getSelectedItem();
-            int idFabricante = nomeFabricante.getId();
-            int idModelo = nomeModelo.getId();
+        try {
+            salvar();
 
-            String placa = txtPlaca.getText();
-            String cor = txtCor.getText();
-            String disponivel = Boolean.toString(chkDisponivel.isSelected());
-            int ano = Integer.parseInt(txtAnoCarro.getText());
-            Double valorCarro = Double.parseDouble(txtValorCarro.getText());
-            try {
-                daoC.update(carroEditar.getId(), idFabricante, idModelo, placa, cor, disponivel, ano, valorCarro);
-                JOptionPane.showMessageDialog(this, "Carro Alterado com Sucesso", "SUCESS", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            Fabricante nomeFabricante = (Fabricante) cboNomeFabricante.getSelectedItem();
-            Modelo nomeModelo = (Modelo) cboNomeModelo.getSelectedItem();
-            int idFabricante = nomeFabricante.getId();
-            int idMOdelo = nomeModelo.getId();
-
-            String placa = txtPlaca.getText();
-            String cor = txtCor.getText();
-            String disponivel = Boolean.toString(chkDisponivel.isSelected());
-            int ano = Integer.parseInt(txtAnoCarro.getText());
-            Double valorCarro = Double.parseDouble(txtValorCarro.getText());
-
-            try {
-                daoC.insert(idFabricante, idMOdelo, placa, cor, disponivel, ano, valorCarro);
-                JOptionPane.showMessageDialog(this, "Carro Inserido com Sucesso", "SUCESS", JOptionPane.INFORMATION_MESSAGE);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERRO", HEIGHT);
         }
-
     }//GEN-LAST:event_btnSalvarActionPerformed
 
 

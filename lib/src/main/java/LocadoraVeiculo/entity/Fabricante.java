@@ -16,6 +16,11 @@ public class Fabricante {
         this.nome = nome;
     }
 
+    public Fabricante(int id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
     public int getId() {
         return id;
     }
@@ -34,8 +39,6 @@ public class Fabricante {
 
     @Override
     public String toString() {
-        return "Fabricante{" +
-                "id=" + id +
-                '}';
+        return id + "-" + nome;
     }
 }

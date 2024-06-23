@@ -48,7 +48,9 @@ public class CarroDAO {
     public Carro select(int id) {
         String query = String.format("""
                        SELECT c.id AS carro_id,
+                              m.id as id_modelo,
                               m.nome AS modelo_nome,
+                              f.id as id_fabricante,
                               f.nome AS fabricante_nome,
                               c.placa AS placa_carro,
                               c.cor AS cor_carro,
@@ -67,21 +69,13 @@ public class CarroDAO {
                 Carro carro = new Carro();
 
                 carro.setId(rs.getInt("carro_id"));
-
-                String modeloNome = rs.getString("modelo_nome");
-                Modelo modelo = new Modelo(modeloNome);
-
-                String fabricanteNome = rs.getString("fabricante_nome");
-                Fabricante fabricante = new Fabricante(fabricanteNome);
-
                 carro.setPlaca(rs.getString("placa_carro"));
                 carro.setCor(rs.getString("cor_carro"));
                 carro.setDisponivel(rs.getBoolean("disponivel_carro"));
                 carro.setAno(rs.getInt("ano_carro"));
                 carro.setValorLocacao(rs.getDouble("valorlocacao_carro"));
-
-                carro.setFabricante(fabricante);
-                carro.setModelo(modelo);
+                carro.setFabricante(new Fabricante(rs.getInt("id_fabricante"), rs.getString("fabricante_nome")));
+                carro.setModelo(new Modelo(rs.getInt("id_modelo"), rs.getString("modelo_nome")));
 
                 return carro;
             }
@@ -152,6 +146,9 @@ public class CarroDAO {
         }
     }
 
+//    public int update(Carro c) throws Exception {
+//        return update(c.getId(), c.getFabricante().getId(), c.getModelo().getId(), c.getPlaca(), c.getCor(), String.valueOf(c.getDisponivel()), c.getAno(), c.getValorLocacao())
+//    }
     public int update(int id, int idFabricante, int idModelo, String placa, String cor, String disponivel, int ano, Double valorlocacao) {
         String query = String.format("""
                                 UPDATE carro 
